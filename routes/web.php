@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/forum','DiscussionController@index');
+
+Route::get('/discussion/{id}','DiscussionController@show');

@@ -12,6 +12,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -69,12 +75,16 @@
                     </ul>
                 </div>
             </div>
+            <div id="image" style="width:100%; height:100px; background-image:url('{{asset('images/black.jpg')}}'); background-repeat: repeat; background-size: auto;"><p style="font-size:50px; color:white; position: relative; left:45%;">Forum</p></div>
         </nav>
+
 
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('js')
+
 </body>
 </html>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Thread;
+use App\Response;
 use Illuminate\Http\Request;
 
-class ThreadController extends Controller
+class ResponseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Thread  $thread
+     * @param  \App\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show(Response $response)
     {
         //
     }
@@ -52,10 +52,10 @@ class ThreadController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Thread  $thread
+     * @param  \App\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function edit(Thread $thread)
+    public function edit(Response $response)
     {
         //
     }
@@ -64,10 +64,10 @@ class ThreadController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Thread  $thread
+     * @param  \App\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Thread $thread)
+    public function update(Request $request, Response $response)
     {
         //
     }
@@ -75,10 +75,10 @@ class ThreadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Thread  $thread
+     * @param  \App\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy(Response $response)
     {
         //
     }
