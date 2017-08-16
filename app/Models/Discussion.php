@@ -19,10 +19,13 @@ class Discussion extends Model
         return $this->hasMany('App\Response');
     }
 
+
+
     public function getDiscussion()
     {
-        $allComments = $this->responses()->with('user')->get();
-        $rootComments = $allComments->where('parent_id', null); // filter collection
+        $allComments = $this->responses()->get();
+
+        $rootComments = $allComments->where('parent_id', 0)->where('discussion_id', 1); // filter collection
 
         return $rootComments->each(function($comment) use ($allComments) {
             $comment->nestReplies($allComments, 2);

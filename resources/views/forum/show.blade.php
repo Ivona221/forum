@@ -13,17 +13,29 @@
 
                 <div class="panel-body">
 
-                    @foreach($responses as $response)
+                    <div id="comments">
+                        {{$discussion->id}}
+                        @each('forum.partials.single', $discussion->getDiscussion(), 'response')
+                    </div>
 
-                        <p>{{$response->body}}</p><p>Posted By:{{$users[$response->id]}}</p>
-                        <a href="/reply">Reply</a>
-                        @endforeach
-                    <form action="/discussion/{{ $discussion->id }}" method="post">
+
+                    @foreach($responses as $response)
+                        {{-- show the comment markup --}}
+                       <div>{{$response->body}}</div>
+
+                        @if($response->responses)
+                            {{-- recursively include this view, passing in the new collection of comments to iterate --}}
+                            @include('forum.partials.show', ['responses' => $response->responses])
+                        @endif
+                    @endforeach
+
+
+                   {{-- <form action="/discussion/{{ $discussion->id }}" method="post">
                     <input type="text" id="body" value="">
                         <input type="hidden" name="discussion_id" value="{{$discussion->id}}">
 
                         <input type="hidden" name="user_id" value="{{$userId}}">
-                    </form>
+                    </form>--}}
                 </div>
             </div>
 

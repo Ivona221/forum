@@ -65,7 +65,7 @@ class DiscussionController extends Controller
 
         $userId=Auth::user()->id;
 
-        $responses=Response::where('id',$discussion->id)->get();
+        $responses=Response::where('discussion_id',$discussion->id)->where('parent_id',0)->get();
 
         foreach(Response::all() as $response){
             $user_id=$response->user_id;
