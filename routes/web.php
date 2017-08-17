@@ -22,3 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/forum','DiscussionController@index');
 
 Route::get('/discussion/{id}','DiscussionController@show');
+
+Route::post('/discussion/{parent_id}/{discussion_id}','ResponseController@create');
+
+Route::get('/upvote/{id}','ResponseController@editUpvote');
+
+Route::get('/downvote/{id}','ResponseController@editDownvote');

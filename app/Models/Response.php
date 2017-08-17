@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Response extends Model
 {
 
+    protected $fillable = [
+        'parent_id', 'discussion_id', 'body','user_id','markdown', 'image'
+    ];
+
     public $replies;
     public $level = 1;
     public $array = [];
@@ -14,6 +18,10 @@ class Response extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function users(){
+        return $this->belongsToMany('App\User');
     }
 
     public function discussion()

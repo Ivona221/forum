@@ -7,6 +7,7 @@ use App\Response;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class DiscussionController extends Controller
 {
@@ -37,9 +38,12 @@ class DiscussionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request,$parent_id,$discussion_id)
     {
-        //
+        $response=new Response;
+        $response->create($request->all());
+         return Redirect::back();
+
     }
 
     /**
@@ -109,4 +113,6 @@ class DiscussionController extends Controller
     {
         //
     }
+
+
 }

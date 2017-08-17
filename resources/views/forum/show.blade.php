@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('css')
+<style>
+    .comment-replies{
+        margin-left: 20px;
+    }
+</style>
+    @stop
+
 @section('content')
 
     <div class="container">
@@ -13,29 +21,38 @@
 
                 <div class="panel-body">
 
-                    <div id="comments">
-                        {{$discussion->id}}
+                    <div id="comments" class="container" style="width:100%">
+
                         @each('forum.partials.single', $discussion->getDiscussion(), 'response')
                     </div>
 
 
-                    @foreach($responses as $response)
-                        {{-- show the comment markup --}}
-                       <div>{{$response->body}}</div>
-
-                        @if($response->responses)
-                            {{-- recursively include this view, passing in the new collection of comments to iterate --}}
-                            @include('forum.partials.show', ['responses' => $response->responses])
-                        @endif
-                    @endforeach
 
 
-                   {{-- <form action="/discussion/{{ $discussion->id }}" method="post">
-                    <input type="text" id="body" value="">
-                        <input type="hidden" name="discussion_id" value="{{$discussion->id}}">
+               <div id="hidden" style="display:none;" class="form-group" >
+                    <form id="myForm" action="" method="post" enctype="multipart/form-data">
 
-                        <input type="hidden" name="user_id" value="{{$userId}}">
-                    </form>--}}
+                        {{csrf_field()}}
+
+                        <textarea class="form-control" id="comment" name="body" rows="3" placeholder="Enter your reply..."></textarea>
+
+                        <input id="discussion_id" type="hidden" name="discussion_id" value="">
+
+
+
+                        <input type="hidden" id="notForDB" name="notForDB" value="">
+
+                        <input id="parent_id" type="hidden" name="parent_id" value="">
+
+                        <input id="user_id" type="hidden" name="user_id" value="{{Auth::user()->id}}">
+
+                        <input id="markdown"  name="markdown" value="" type="hidden">
+                        <input type="file" name="image"/>
+
+                        <button type="submit">Post a reply</button>
+                    </form>
+
+                    </div>
                 </div>
             </div>
 
@@ -45,11 +62,56 @@
 
 
 
+
+@section('js')
     <script>
-       function myFunction(){
+       function myFunction(parent_id, discussion_id){
+           document.getElementById('hidden').style.display='block';
+           document.getElementById('parent_id').value=parent_id;
+           document.getElementById('discussion_id').value=discussion_id;
+           document.getElementById('notForDB').value=parent_id;
+           document.getElementById('myForm').action='/discussion/'+parent_id+'/'+discussion_id;
+       }
+
+       function markdownFunction(){
+
+           alert(document.getElementById('text').innerHTML);
 
        }
+
+       var text='';
+       $('#comment').keydown( function(e) {
+
+var id=$('#notForDB').val();
+
+
+           if(/~(.*?)~/gi.test(this.value)||/\*(.*?)\*/gi.test(this.value)||
+               /_(.*?)_/gi.test(this.value)||/(#+)(.*?)[\n\r]/gi.test(this.value)){
+
+               text=this.value.replace(/~(.*?)~/gi, '<span style="text-decoration:line-through">$1</span>')
+                   .replace(/\*(.*?)\*/gi, '<span style="font-style: italic">$1</span>')
+                   .replace(/_(.*?)_/gi, '<span style="font-style: italic">$1</span>')
+                   .replace(/(#+)(.*?)[\n\r]/gi,  function(match, capture, capture2){return '<h'+capture.length+'>'+capture2+'</h'+capture.length+'>'});
+           }
+
+
+
+
+
+           else text=this.value;
+
+
+           $('#text'+id).empty().append(text);
+
+           $('#markdown').val($('#text'+id).html() );
+
+
+       });
     </script>
+
+
+
+@stop
 
 
     @stop
