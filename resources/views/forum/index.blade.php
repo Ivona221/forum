@@ -42,6 +42,8 @@
             font-weight: bold;
         }
 
+
+
         .close:hover,
         .close:focus {
             color: black;
