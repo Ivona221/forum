@@ -34,6 +34,8 @@
             width: 80%; /* Could be more or less, depending on screen size */
         }
 
+
+
         /* The Close Button */
         .close {
             color: #aaa;
