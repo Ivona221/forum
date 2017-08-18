@@ -25,7 +25,7 @@ class Discussion extends Model
     {
         $allComments = $this->responses()->get();
 
-        $rootComments = $allComments->where('parent_id', 0)->where('discussion_id', 1); // filter collection
+        $rootComments = $allComments->where('parent_id', 0)->where('discussion_id', $this->id); // filter collection
 
         return $rootComments->each(function($comment) use ($allComments) {
             $comment->nestReplies($allComments, 2);

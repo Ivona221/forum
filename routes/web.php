@@ -28,3 +28,6 @@ Route::post('/discussion/{parent_id}/{discussion_id}','ResponseController@create
 Route::get('/upvote/{id}','ResponseController@editUpvote');
 
 Route::get('/downvote/{id}','ResponseController@editDownvote');
+
+Route::post('/create','DiscussionController@create');
+Route::get('/byCategory/{id}','DiscussionController@byCat');

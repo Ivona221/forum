@@ -17,9 +17,24 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        @font-face {
+            font-family: somerset;
+            src: url('{{asset('somerset.otf')}}');
+        }
+    </style>
+
     @yield('css')
 </head>
-<body>
+<body style="overflow-x:hidden;">
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -75,7 +90,11 @@
                     </ul>
                 </div>
             </div>
-            <div id="image" style="width:100%; height:100px; background-image:url('{{asset('images/black.jpg')}}'); background-repeat: repeat; background-size: auto;"><p style="font-size:50px; color:white; position: relative; left:45%;">Forum</p></div>
+            <div id="image" style="width:100%; height:200px; background-image:url('{{asset('images/people.png')}}'); background-repeat:no-repeat;  background-size: 100% auto;">
+                <p style="font-size:70px; font-family:somerset; color:white; position: relative; left:40%; padding-top:50px;">
+                    Forum
+                </p>
+            </div>
         </nav>
 
 
@@ -84,6 +103,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+
+
     @yield('js')
 
 </body>

@@ -40,16 +40,42 @@ class DiscussionController extends Controller
 
     }
 
+    public function byCat($id){
+        $discussions=Discussion::where('category_id',$id)->get();
+
+        foreach ($discussions as $discussion){
+
+            $user_id=$discussion->user_id;
+            $name=User::where('id',$user_id)->first()->name;
+            $posted[$discussion->id]=$name;
+            $replies[$discussion->id]=Response::where('discussion_id',$discussion->id)->get()->count();
+
+
+
+        }
+
+        $categories=Category::all();
+
+        return view('forum.index', compact('discussions','posted','categories','replies'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request,$parent_id,$discussion_id)
+    public function create(Request $request)
     {
-        $response=new Response;
-        $response->create($request->all());
-         return Redirect::back();
+        $discussion=new Discussion;
+        $discussion->category_id=$request->get('category_id');
+        $discussion->title=$request->get('title');
+        $slug=$request->get('title');
+        $discussion->slug=$slug;
+        $discussion->user_id=Auth::user()->id;
+        $discussion->save();
+
+        return Redirect::back();
+
 
     }
 

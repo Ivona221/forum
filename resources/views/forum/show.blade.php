@@ -16,7 +16,7 @@
         <div class="col-sm-offset-2 col-sm-8 ">
             <div class="panel panel-default bg-info">
                 <div class="panel-heading bg-warning">
-                   {{$discussion->title}}
+                   {{$discussion->title}}<a onclick="myFunction(0,'{{$discussion->id}}')">Reply</a>
                 </div>
 
                 <div class="panel-body">
@@ -29,11 +29,12 @@
 
 
 
-               <div id="hidden" style="display:none;" class="form-group" >
+               <div id="hidden" style="display:none; " class="form-group" >
                     <form id="myForm" action="" method="post" enctype="multipart/form-data">
 
                         {{csrf_field()}}
 
+                        <span onclick="closeModal()" class="glyphicon glyphicon-remove" style="float:right;"></span>
                         <textarea class="form-control" id="comment" name="body" rows="3" placeholder="Enter your reply..."></textarea>
 
                         <input id="discussion_id" type="hidden" name="discussion_id" value="">
@@ -71,6 +72,10 @@
            document.getElementById('discussion_id').value=discussion_id;
            document.getElementById('notForDB').value=parent_id;
            document.getElementById('myForm').action='/discussion/'+parent_id+'/'+discussion_id;
+       }
+
+       function closeModal(){
+           document.getElementById('hidden').style.display='none';
        }
 
        function markdownFunction(){

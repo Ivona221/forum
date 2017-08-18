@@ -2,6 +2,9 @@
 
 @section('css')
     <style>
+        #cat0{
+            background-color: #777;
+        }
         #cat1{
             background-color: #d9534f;
         }
@@ -12,12 +15,20 @@
             background-color: #f0ad4e;
         }
 
+        a{
+            text-decoration: none;
+        }
+
+        a:hover{
+            text-decoration: none;
+        }
+
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            z-index: 3; /* Sit on top */
             left: 0;
-            top: 0;
+            top: 60px;
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
@@ -63,35 +74,38 @@
     <a onclick="openFunction()"><div style=" background-color:#f0ad4e;color:whitesmoke; width:180px;padding: 5px; margin-left:30px; border-radius:5px; margin-bottom:7px;"><span class="glyphicon glyphicon-plus"></span> NEW DISCUSSION</div></a>
 
     <div style="float:left; padding-left:30px; width:50px;">
+        <p id="cat0" style="border-radius:10px;display:inline;  color:transparent">gg</p><p style="display:inline; margin-left: 5px;font-size:17px"><a href="/forum">All</a></p><br>
 @foreach($categories as $category)
     <p id="cat{{$category->id}}" style="border-radius:10px;display:inline;  color:transparent">gg</p><p style="display:inline; margin-left: 5px;font-size:17px"><a href="/byCategory/{{$category->id}}">{{ucfirst($category->name)}}</a></p><br>
     @endforeach
     </div>
-    <div id="myModal" class="modal">
+    <div id="myModal" class="modal" >
 
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close" onclick="closeFun()">&times;</span>
-            <form class="form-horizontal" action="/action_page.php">
+            <form class="form-horizontal" action="/create" method="post">
+                {{csrf_field()}}
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="email">Enter the discussion:</label>
                     <div class="col-sm-8">
-                        <input type="email" class="form-control" id="email" placeholder="Enter you text..." name="email">
+                        <textarea class="form-control" id="discussion" name="title" rows="3" placeholder="Enter the discussion..."></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="pwd">Password:</label>
+                    <label class="control-label col-sm-2" for="pwd">Choose a category:</label>
                     <div class="col-sm-8">
-                        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                        <select id="select" class="form-control">
+                            <option selected disabled>Choose a category</option>
+                            <option id="1">General</option>
+                            <option id="2">Introduction</option>
+
+                        </select>
+
+                        <input type="hidden" class="form-control" id="pwd"  name="category_id">
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="remember"> Remember me</label>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-default">Submit</button>
@@ -121,11 +135,22 @@
 
         </div>
     </div>
+<script>
+    $(document).ready(function(){
+        $('#select').change(function(){
+            if(this.value==='Introduction'){
+            $('#pwd').val('2');}
+            if(this.value==='General'){
+                $('#pwd').val('1');
+            }
 
+        });
+    });
+</script>
 
     @endforeach
 
-
+@section('js')
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -172,8 +197,9 @@ document.getElementById('myModal').style.display='block';
     }
 
 
+
 </script>
 
-
-@endsection
+@stop
+@stop
 
