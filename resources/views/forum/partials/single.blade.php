@@ -15,7 +15,7 @@
 
     </div>
 
-    <div class="pannel-body"><a  onclick="myFunction('{{$response->id}}','{{$response->discussion_id}}')">@if($response->markdown){!! $response->markdown !!} @else {{ $response->body}}@endif</a>
+    <div class="pannel-body"><a  onclick="myFunction('{{$response->id}}','{{$response->discussion_id}}')">@if($response->markdown&& ($response->markdown!=$response->body)){!! $response->markdown !!} @else {{ $response->body}}@endif</a>
         <div  id="text{{$response->id}}" style="border:1px solid darkred;display:none;" contenteditable="true" ></div>
         <br>
         @if($response->image)

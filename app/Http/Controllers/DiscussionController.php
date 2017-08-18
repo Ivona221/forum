@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Category;
 
 class DiscussionController extends Controller
 {
@@ -27,9 +28,15 @@ class DiscussionController extends Controller
             $user_id=$discussion->user_id;
             $name=User::where('id',$user_id)->first()->name;
             $posted[$discussion->id]=$name;
+            $replies[$discussion->id]=Response::where('discussion_id',$discussion->id)->get()->count();
+
+
 
         }
-        return view('forum.index', compact('discussions','posted'));
+
+        $categories=Category::all();
+
+        return view('forum.index', compact('discussions','posted','categories','replies'));
 
     }
 

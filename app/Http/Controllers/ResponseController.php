@@ -30,13 +30,18 @@ class ResponseController extends Controller
 
         $file = $request->file('image');
 
-        $imageName = $file->getClientOriginalName();
+        if ($file) {
 
-        $path = base_path() . '/public/images';
+            $imageName = $file->getClientOriginalName();
+
+            $path = base_path() . '/public/images';
 
 
-        $file->move($path, $imageName);
-
+            $file->move($path, $imageName);
+        }
+        else{
+            $imageName=null;
+        }
 
         $response = new Response;
 
